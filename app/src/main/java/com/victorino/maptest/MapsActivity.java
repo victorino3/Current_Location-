@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -50,6 +51,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationManager locationManager;
     private LocationListener locationListener;
 
+    @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,12 +86,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-
-
-        /*LatLng userLocationX = new LatLng(latitude, longitude);
-        mMap.addMarker(new MarkerOptions().position(userLocationX).title("My location"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocationX,10));
-        Log.d("Current LocationX", String.format("From onLocationChanged %s %s", latitude, longitude));*/
         Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
         try {
             mMap = googleMap;
@@ -104,8 +100,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.d("Local return","onLocationChanged"+result.getAddressLine(0));
                 double latitudeToMarker = result.getLatitude();
                 double longitudeToMarker = result.getLongitude();
-                //remove old point to add new
-                //mMap.clear();
                 LatLng userLocationX = new LatLng(latitudeToMarker, longitudeToMarker);
                 mMap.addMarker(new MarkerOptions().position(userLocationX).title(result.getAddressLine(0)));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocationX,10));
@@ -129,26 +123,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
 
-        /*Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-        String place = "Universidade da beira interior";
-        try {
-            List<Address> addressList = geocoder.getFromLocationName(place,1);
-            if(addressList != null && addressList.size() > 0){
-                Address result = addressList.get(0);
-                Log.d("Local return","onLocationChanged"+result.getAddressLine(0));
-                double latitude = result.getLatitude();
-                double longitude = result.getLongitude();
-                //remove old point to add new
-                //mMap.clear();
-                LatLng userLocationX = new LatLng(latitude, longitude);
-                mMap.addMarker(new MarkerOptions().position(userLocationX).title(result.getAddressLine(0)));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocationX,10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-             -122.084 37.421998333333335
-        }*/
-        // Add a marker in Sydney and move the camera
 
     }
 

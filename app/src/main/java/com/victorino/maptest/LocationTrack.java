@@ -1,6 +1,7 @@
 package com.victorino.maptest;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
@@ -44,6 +45,7 @@ public class LocationTrack extends Service implements LocationListener {
         getLocation();
     }
 
+    @SuppressLint("MissingPermission")
     private Location getLocation() {
 
         try {
@@ -67,13 +69,7 @@ public class LocationTrack extends Service implements LocationListener {
                 if (checkGPS) {
 
                     if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
+
                     }
                     locationManager.requestLocationUpdates(
                             LocationManager.GPS_PROVIDER,
